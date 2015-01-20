@@ -1,0 +1,22 @@
+{
+  "name": "supercollider",
+  "version": "0.0.0",
+  "description": "Documentation generator",
+  "main": "super.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "ZURB",
+  "license": "MIT",
+  "devDependencies": {
+    "sassdoc": "^2.0.0-rc.17"
+  },
+  "dependencies": {
+    "async": "^0.9.0",
+    "highlight.js": "^8.4.0",
+    "marked": "^0.3.2"
+  }
+}

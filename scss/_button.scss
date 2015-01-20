@@ -1,0 +1,46 @@
+/*doc
+---
+title: Button
+name: button
+category: button
+---
+
+A button is a button.
+
+```html
+<a href="#" class="button">Button</a>
+```
+
+<a href="#" class="button">Button</a>
+*/
+
+////
+/// @group button
+////
+
+/// Default padding for buttons.
+/// @type Number
+$button-padding: 1rem;
+
+/// Default background color for buttons.
+/// @type Color
+$button-background: #60c2ff;
+
+/// Creates a basic button.
+/// @param {Number} $padding [$button-padding] - Padding around the text of the button.
+/// @param {Color} $padding [$button-background] - Backgrounf color of the button.
+@mixin button(
+  $padding: $button-padding,
+  $background: $button-background
+) {
+  $color: if(lightness($background) > 60%, #000, #fff);
+
+  display: inline-block;
+  padding: $padding;
+  background: $background;
+  color: $color;
+}
+
+.button {
+  @include button;
+}
