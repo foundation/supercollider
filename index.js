@@ -3,6 +3,7 @@
 var superc = require('./super');
 
 superc({
+  html: './scss',
   sass: './scss',
-  dest: 'super.json'
+  dest: 'docs.json'
 });
