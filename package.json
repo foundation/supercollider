@@ -1,8 +1,8 @@
 {
   "name": "supercollider",
-  "version": "0.0.0",
-  "description": "Documentation generator",
-  "main": "super.js",
+  "version": "0.0.1",
+  "description": "A documentation generator that combines Hologram, SassDoc, and JSDoc into a single structure.",
+  "main": "index.js",
   "directories": {
     "test": "test"
   },
