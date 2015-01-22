@@ -15,9 +15,13 @@
     "sassdoc": "^2.0.0-rc.17"
   },
   "dependencies": {
+    "assemble": "assemble/assemble#v0.6.0",
     "async": "^0.9.0",
+    "glob": "^4.3.5",
+    "handlebars": "^2.0.0",
     "highlight.js": "^8.4.0",
     "jsdoc3-parser": "^1.0.4",
-    "marked": "^0.3.2"
+    "marked": "^0.3.2",
+    "rimraf": "^2.2.8"
   }
 }
