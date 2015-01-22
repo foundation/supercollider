@@ -88,14 +88,14 @@ Super.prototype = {
 
     // Process SassDoc components
     // The @group tag is used to connect items to the main object
-    for (var i = 0; i < sassdoc.length; i++) {
-      var item = sassdoc[i];
-      var group = item['group'][0];
-      var type  = item['context']['type'];
+    for (var item in sassdoc) {
+      var comp = sassdoc[item];
+      var group = comp['group'][0];
+      var type  = comp['context']['type'];
 
       if (typeof tree[group] === 'object') {
         // Type will be "function", "mixin", or "variable"
-        tree[group][type].push(item);
+        tree[group][type].push(comp);
       }
       else {
         console.warn("Found a Sass component missing HTML documentation: " + group);
