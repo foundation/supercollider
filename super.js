@@ -1,5 +1,6 @@
 var assemble   = require('assemble');
 var async      = require('async');
+var css        = require('css');
 var exec       = require('child_process').exec;
 var fs         = require('fs');
 var glob       = require('glob');
@@ -9,6 +10,7 @@ var jsdoc      = require('jsdoc3-parser');
 var marked     = require('marked');
 var path       = require('path');
 var rimraf     = require('rimraf');
+var sass       = require('node-sass');
 var sassdoc    = require('sassdoc');
 
 handlebars.registerHelper('toUpper', function(str) {
@@ -37,7 +39,6 @@ handlebars.registerHelper('writeMixin', function(mixin) {
 //   - js: directory to scan for JavaScript
 //   - dest: directory to output the test JSON to
 var Super = function(options) {
-  var _this = this;
   this.options = options;
 }
 
@@ -69,6 +70,28 @@ Super.prototype = {
           }
           callback(null, data);
         });
+      },
+      // CSS classes
+      function(callback) {
+        // glob('scss/**/*.scss', function(err, files) {
+        //   var data = {};
+        //   for (var file in files) {
+        //     sass.render({
+        //       file: files[file],
+        //       includePaths: ['./scss'],
+        //       outputStyle: 'nested',
+        //       success: function(data, map, status) {
+        //         var name = files[file].split('/');
+        //         name = name[name.length -1].split
+        //         data[]
+        //       },
+        //       error: function() {
+        //         callback(new Error('Error with node-sass.'), {});
+        //       }
+        //     });
+        //   }
+        //   callback(null, data);
+        // });
       }
     ];
 
@@ -83,6 +106,7 @@ Super.prototype = {
     var hologram = data[0][0];
     var sassdoc  = data[1];
     var jsdoc    = data[2];
+    // var cssobj   = data[3];
     var tree = {};
 
     // Process Hologram components
