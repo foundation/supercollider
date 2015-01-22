@@ -28,7 +28,7 @@ $button-background: #60c2ff;
 
 /// Creates a basic button.
 /// @param {Number} $padding [$button-padding] - Padding around the text of the button.
-/// @param {Color} $padding [$button-background] - Backgrounf color of the button.
+/// @param {Color} $background [$button-background] - Backgrounf color of the button.
 @mixin button(
   $padding: $button-padding,
   $background: $button-background
