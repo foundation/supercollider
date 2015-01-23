@@ -1,4 +1,3 @@
-var assemble   = require('assemble');
 var async      = require('async');
 var css        = require('css');
 var exec       = require('child_process').exec;
@@ -49,7 +48,8 @@ Super.prototype = {
     var tasks = [
       // Hologram
       function(callback) {
-        exec('bundle exec ruby lib/hologram.rb ' + _this.options.html, function(error, stdout, stderr) {
+        var holo = path.join(__dirname, 'lib', 'hologram.rb');
+        exec('bundle exec ruby '+holo+' '+_this.options.html, function(error, stdout, stderr) {
           callback(error, JSON.parse(stdout));
         });
       },
@@ -92,6 +92,7 @@ Super.prototype = {
         //   }
         //   callback(null, data);
         // });
+        callback(null, {});
       }
     ];
 
@@ -132,16 +133,26 @@ Super.prototype = {
     // Process SassDoc components
     // The @group tag is used to connect items to the main object
     for (var item in sassdoc) {
-      var comp = sassdoc[item];
-      var group = comp['group'][0];
-      var type  = comp['context']['type'];
+      var comp   = sassdoc[item];
+      var group  = comp['group'][0];
+      var type   = comp['context']['type'];
 
-      if (typeof tree[group] === 'object') {
-        // Type will be "function", "mixin", or "variable"
-        tree[group][type].push(comp);
+      // Only parse public items
+      if (comp['access'] === 'private') continue;
+
+      // Check if the item was assigned to a group
+      if (group !== 'undefined') {
+        // Check if the group is also an HTML component name
+        if (typeof tree[group] === 'object') {
+          // Type will be "function", "mixin", or "variable"
+          tree[group][type].push(comp);
+        }
+        else {
+          console.warn("Found a Sass component missing HTML documentation: " + group);
+        }
       }
       else {
-        console.warn("Found a Sass component missing HTML documentation: " + group);
+        console.warn("Found a Sass component missing a group: " + comp['context']['name']);
       }
     }
 
@@ -171,7 +182,11 @@ Super.prototype = {
       }
     }
 
-    fs.writeFile(this.options.destJSON, JSON.stringify(tree));
+    if (typeof this.options.destJSON === 'string') {
+      var outputPath = path.join(process.cwd(), this.options.destJSON, name+'.html');
+      fs.writeFile(outputPath, JSON.stringify(tree));
+    }
+
     this.buildPages(tree);
   },
 
@@ -203,7 +218,8 @@ Super.prototype = {
       var layoutPage    = layoutTemplate({body: componentPage, components: components});
 
       // Write to disk
-      fs.writeFileSync(path.join(this.options.dest, name+'.html'), layoutPage);
+      var outputPath = path.join(process.cwd(), this.options.dest, name+'.html');
+      fs.writeFileSync(outputPath, layoutPage);
     }
   }
 }
