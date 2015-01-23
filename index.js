@@ -31,6 +31,10 @@ handlebars.registerHelper('writeMixin', function(mixin) {
   return str;
 });
 
+handlebars.registerHelper('md', function(text) {
+  return marked(text);
+});
+
 // Creates a new instance of Supercollider, which will generate a single static site.
 // options: an object of configuration settings:
 //   - html: directory to scan for HTML
