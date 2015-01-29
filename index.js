@@ -150,15 +150,17 @@ Super.prototype = {
         return null;
       })();
 
+      // If the doclet doesn't have a group name
       if (group === null) {
         console.warn("Found a JavaScript doclet missing a component name: " + comp['kind'] + " " + comp['name']);
       }
       else {
-        if (typeof tree[group] === 'object') {
-          tree[group]['javascript'].push(comp);
+        // If the component group doesn't exist
+        if (typeof tree[group] !== 'object') {
+          console.warn("Found a JavaScript component missing HTML documentation: " + group);
         }
         else {
-          console.warn("Found a JavaScript component missing HTML documentation: " + group);
+          tree[group]['javascript'].push(comp);
         }
       }
     }
