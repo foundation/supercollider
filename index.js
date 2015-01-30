@@ -30,7 +30,7 @@ Super.prototype = {
       // Hologram
       hologram: function(callback) {
         var holo = path.join(__dirname, 'lib', 'hologram.rb');
-        exec('bundle exec ruby '+holo+' '+_this.options.html, function(error, stdout, stderr) {
+        exec('ruby '+holo+' '+_this.options.html, function(error, stdout, stderr) {
           callback(error, JSON.parse(stdout));
         });
       },
