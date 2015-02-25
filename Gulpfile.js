@@ -8,10 +8,6 @@ gulp.task('default', function() {
     js: './test/js/**/*.js',
     templates: './test/templates',
     destJSON: null,
-    dest: './build'
+    dest: './_build'
   });
-});
-
-gulp.task('stream', function() {
-
 });

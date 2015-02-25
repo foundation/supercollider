@@ -1,0 +1,97 @@
+<html>
+
+<head>
+  <title>Supercollider Test</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.css"></link>
+</head>
+
+<body>
+  <div class="contain-to-grid" style="margin-bottom: 2rem">
+    <nav class="top-bar">
+      <ul class="title-area">
+        <li class="name"><h1><a href="#">Supercollider</a></h1></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="row">
+    <div class="medium-4 large-3 columns">
+      <div class="panel">
+        <ul class="side-nav">
+          <li><a href="button.html">Button</a></li>
+          <li><a href="type.html">Type</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="medium-8 large-9 columns">
+      <h1 id="button" class="styleguide">Button</h1>
+
+<p>A button is a button.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"#"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"button"</span>&gt;</span>Button<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+</code></pre>
+<p><a href="#" class="button">Button</a></p>
+
+
+<hr>
+
+<section>
+  <h2>Using Sass</h2>
+
+  <section>
+    <h3>Variables</h3>
+    <table>
+      <tr><th>Name</th><th>Type</th><th>Default Value</th><th>Description</th></tr>
+      <tr>
+        <td><code>$button-padding</code></td>
+        <td>Number</td>
+        <td><code>1rem</code></td>
+        <td>Default padding for buttons.
+</td>
+      </tr>
+      <tr>
+        <td><code>$button-background</code></td>
+        <td>Color</td>
+        <td><code>#60c2ff</code></td>
+        <td>Default background color for buttons.
+</td>
+      </tr>
+    </table>
+  </section>
+
+  <hr>
+
+  <section>
+    <h3>Mixins</h3>
+
+    <section>
+      <h4>button</h4>
+
+      <pre><code>@mixin button($padding, $background) { }</code></pre>
+
+      <p>Creates a basic button.
+</p>
+
+      <table>
+        <tr><th>Name</th><th>Type</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td><code>$padding</code></td>
+          <td>Number</td>
+          <td><code>$button-padding</code></td>
+          <td>Padding around the text of the button.</td>
+        </tr>
+        <tr>
+          <td><code>$background</code></td>
+          <td>Color</td>
+          <td><code>$button-background</code></td>
+          <td>Backgrounf color of the button.</td>
+        </tr>
+      </table>
+    </section>
+  </section>
+</section>
+
+    </div>
+  </div>
+</body>
+
+</html>
