@@ -1,17 +1,3 @@
-var async      = require('async');
-var css        = require('css');
-var exec       = require('child_process').exec;
-var fs         = require('fs');
-var glob       = require('glob');
-var handlebars = require('./lib/handlebars');
-var hljs       = require('highlight.js');
-var jsdoc      = require('jsdoc3-parser');
-var marked     = require('marked');
-var path       = require('path');
-var rimraf     = require('rimraf');
-var sass       = require('node-sass');
-var sassdoc    = require('sassdoc');
-
 // Creates a new instance of Supercollider, which will generate a single static site.
 // options: an object of configuration settings:
 //   - html: directory to scan for HTML
