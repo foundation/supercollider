@@ -21,6 +21,8 @@ Super.prototype = {
     var sassdoc = require('sassdoc');
     var jsdoc   = require('jsdoc3-parser');
     var async = require('async');
+    var hljs   = require('highlight.js');
+    var marked = require('marked');
 
     var tree = {};
     var fileTasks = [];
@@ -37,6 +39,11 @@ Super.prototype = {
         // Global attributes
         page.title = pageData.attributes.title;
         page.description = pageData.attributes.description || '';
+        page.docs = marked(pageData.body, {
+          highlight: function(code, lang) {
+            return hljs.highlight(lang, code).value;
+          }
+        });
 
         var parserTasks = {}
 
