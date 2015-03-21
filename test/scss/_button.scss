@@ -25,6 +25,14 @@ $button-background: #60c2ff;
   color: $color;
 }
 
+/// Returns whatever you enter in `$param`.
+/// @param {Boolean} $param [true] - The value to return.
+@function button(
+  $param: true
+) {
+  @return $param;
+}
+
 .button {
   @include button;
 }

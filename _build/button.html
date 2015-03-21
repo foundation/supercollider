@@ -10,3 +10,84 @@
 
 <hr>
 
+<section>
+  <h2>Using Sass</h2>
+
+  <section>
+    <h3>Variables</h3>
+    <table>
+      <tr><th>Name</th><th>Type</th><th>Default Value</th><th>Description</th></tr>
+      <tr>
+        <td><code>$button-padding</code></td>
+        <td>Number</td>
+        <td><code>1rem</code></td>
+        <td>Default padding for buttons.
+</td>
+      </tr>
+      <tr>
+        <td><code>$button-background</code></td>
+        <td>Color</td>
+        <td><code>#60c2ff</code></td>
+        <td>Default background color for buttons.
+</td>
+      </tr>
+    </table>
+  </section>
+
+  <hr>
+
+  <section>
+    <h3>Mixins</h3>
+
+    <section>
+      <h4>button</h4>
+
+      <pre><code>@include button($padding, $background) { }</code></pre>
+
+      <p>Creates a basic button.
+</p>
+
+      <table>
+        <tr><th>Name</th><th>Type</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td><code>$padding</code></td>
+          <td>Number</td>
+          <td><code>$button-padding</code></td>
+          <td>Padding around the text of the button.</td>
+        </tr>
+        <tr>
+          <td><code>$background</code></td>
+          <td>Color</td>
+          <td><code>$button-background</code></td>
+          <td>Backgrounf color of the button.</td>
+        </tr>
+      </table>
+    </section>
+  </section>
+
+  <hr>
+
+  <section>
+    <h3>Functions</h3>
+
+    <section>
+      <h4>button</h4>
+
+      <pre><code>button($param)</code></pre>
+
+      <p>Returns whatever you enter in `$param`.
+</p>
+
+      <table>
+        <tr><th>Name</th><th>Type</th><th>Default Value</th><th>Description</th></tr>
+        <tr>
+          <td><code>$param</code></td>
+          <td>Boolean</td>
+          <td><code>true</code></td>
+          <td>The value to return.</td>
+        </tr>
+      </table>
+    </section>
+  </section>
+
+</section>

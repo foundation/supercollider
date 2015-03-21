@@ -6,15 +6,16 @@
 
 <hr>
 
-{{#if variable}}
+{{#if sass}}
 <section>
   <h2>Using Sass</h2>
 
+  {{#if sass.variable}}
   <section>
     <h3>Variables</h3>
     <table>
       <tr><th>Name</th><th>Type</th><th>Default Value</th><th>Description</th></tr>
-      {{#each variable}}
+      {{#each sass.variable}}
       <tr>
         <td><code>${{this.context.name}}</code></td>
         <td>{{this.type}}</td>
@@ -24,14 +25,15 @@
       {{/each}}
     </table>
   </section>
+  {{/if}}
 
   <hr>
 
-  {{#if mixin}}
+  {{#if sass.mixin}}
   <section>
     <h3>Mixins</h3>
 
-    {{#each mixin}}
+    {{#each sass.mixin}}
     <section>
       <h4>{{this.context.name}}</h4>
 
@@ -41,7 +43,7 @@
 
       {{#if this.parameter}}
       <table>
-        <tr><th>Name</th><th>Type</th><th>Default Value</th><th>Description</th></tr>
+        <tr><th>Parameter</th><th>Type</th><th>Default Value</th><th>Description</th></tr>
         {{#each this.parameter}}
         <tr>
           <td><code>${{this.name}}</code></td>
@@ -56,5 +58,38 @@
     {{/each}}
   </section>
   {{/if}}
+
+  <hr>
+
+  {{#if sass.function}}
+  <section>
+    <h3>Functions</h3>
+
+    {{#each sass.function}}
+    <section>
+      <h4>{{this.context.name}}</h4>
+
+      <pre><code>{{writeFunction this}}</code></pre>
+
+      <p>{{this.description}}</p>
+
+      {{#if this.parameter}}
+      <table>
+        <tr><th>Parameter</th><th>Type</th><th>Default Value</th><th>Description</th></tr>
+        {{#each this.parameter}}
+        <tr>
+          <td><code>${{this.name}}</code></td>
+          <td>{{this.type}}</td>
+          <td><code>{{this.default}}</code></td>
+          <td>{{this.description}}</td>
+        </tr>
+        {{/each}}
+      </table>
+      {{/if}}
+    </section>
+    {{/each}}
+  </section>
+  {{/if}}
+
 </section>
 {{/if}}
