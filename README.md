@@ -1,10 +1,10 @@
 # Supercollider
 
-A fancy documentation generator. Requires Ruby, Bundler and Gulp to be installed.
+A fancy documentation generator. Requires Node and Gulp.
 
 ```
 git clone https://github.com/gakimball/supercollider
 cd supercollider
-npm install && bundle
+npm i
 gulp
 ```
