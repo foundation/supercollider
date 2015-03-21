@@ -1,0 +1,184 @@
+[
+  {
+    "title": "Button",
+    "description": "A button is a button.",
+    "docs": "<p>Making a button is easy as eff.</p>\n<pre><code class=\"lang-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">a</span> <span class=\"hljs-attribute\">href</span>=<span class=\"hljs-value\">\"#\"</span> <span class=\"hljs-attribute\">class</span>=<span class=\"hljs-value\">\"button\"</span>&gt;</span>Button<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">a</span>&gt;</span>\n</code></pre>\n<p><a href=\"#\" class=\"button\">Button</a></p>\n",
+    "sass": [
+      {
+        "description": "Default padding for buttons.\n",
+        "commentRange": {
+          "start": 21,
+          "end": 22
+        },
+        "context": {
+          "type": "variable",
+          "name": "button-padding",
+          "value": "1rem",
+          "scope": "private",
+          "line": {
+            "start": 23,
+            "end": 23
+          }
+        },
+        "type": "Number",
+        "group": [
+          "button"
+        ],
+        "access": "public",
+        "file": {
+          "path": "_button.scss",
+          "name": "_button.scss"
+        }
+      },
+      {
+        "description": "Default background color for buttons.\n",
+        "commentRange": {
+          "start": 25,
+          "end": 26
+        },
+        "context": {
+          "type": "variable",
+          "name": "button-background",
+          "value": "#60c2ff",
+          "scope": "private",
+          "line": {
+            "start": 27,
+            "end": 27
+          }
+        },
+        "type": "Color",
+        "group": [
+          "button"
+        ],
+        "access": "public",
+        "file": {
+          "path": "_button.scss",
+          "name": "_button.scss"
+        }
+      },
+      {
+        "description": "Creates a basic button.\n",
+        "commentRange": {
+          "start": 29,
+          "end": 31
+        },
+        "context": {
+          "type": "mixin",
+          "name": "button",
+          "code": "\n  $color: if(lightness($background) > 60%, #000, #fff);\n\n  display: inline-block;\n  padding: $padding;\n  background: $background;\n  color: $color;\n",
+          "line": {
+            "start": 32,
+            "end": 42
+          }
+        },
+        "parameter": [
+          {
+            "type": "Number",
+            "name": "padding",
+            "default": "$button-padding",
+            "description": "Padding around the text of the button."
+          },
+          {
+            "type": "Color",
+            "name": "background",
+            "default": "$button-background",
+            "description": "Backgrounf color of the button."
+          }
+        ],
+        "group": [
+          "button"
+        ],
+        "access": "public",
+        "require": [],
+        "file": {
+          "path": "_button.scss",
+          "name": "_button.scss"
+        }
+      }
+    ],
+    "js": [
+      {
+        "comment": "/**\n * Creates a new button.\n * @component button\n * @class\n */",
+        "meta": {
+          "range": [
+            84,
+            110
+          ],
+          "filename": "button.js",
+          "lineno": 8,
+          "path": "/Users/geoff/Sites/super/test/js",
+          "code": {
+            "id": "astnode100000007",
+            "name": "Button",
+            "type": "FunctionExpression",
+            "value": "function"
+          }
+        },
+        "description": "Creates a new button.",
+        "tags": [
+          {
+            "originalTitle": "component",
+            "title": "component",
+            "text": "button",
+            "value": "button"
+          }
+        ],
+        "kind": "class",
+        "name": "Button",
+        "longname": "<anonymous>~Button",
+        "memberof": "<anonymous>",
+        "scope": "inner"
+      },
+      {
+        "comment": "/**\n   * Do something.\n   * @component button\n   * @function\n   * @param {string} option - An option to do a thing.\n   */",
+        "meta": {
+          "range": [
+            259,
+            295
+          ],
+          "filename": "button.js",
+          "lineno": 19,
+          "path": "/Users/geoff/Sites/super/test/js",
+          "code": {
+            "id": "astnode100000017",
+            "name": "doSomething",
+            "type": "FunctionExpression",
+            "value": "function"
+          }
+        },
+        "description": "Do something.",
+        "tags": [
+          {
+            "originalTitle": "component",
+            "title": "component",
+            "text": "button",
+            "value": "button"
+          }
+        ],
+        "kind": "function",
+        "params": [
+          {
+            "type": {
+              "names": [
+                "string"
+              ]
+            },
+            "description": "An option to do a thing.",
+            "name": "option"
+          }
+        ],
+        "name": "doSomething",
+        "longname": "<anonymous>~Button#doSomething",
+        "memberof": "<anonymous>~Button",
+        "scope": "instance"
+      },
+      {
+        "kind": "package",
+        "longname": "package:undefined",
+        "files": [
+          "/Users/geoff/Sites/super/test/js/button.js"
+        ]
+      }
+    ]
+  }
+]

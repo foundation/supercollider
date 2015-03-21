@@ -44,6 +44,7 @@ Super.prototype = {
             return hljs.highlight(lang, code).value;
           }
         });
+        page.fileName = fileName;
 
         var parserTasks = {}
 
@@ -76,12 +77,73 @@ Super.prototype = {
     async.parallel(fileTasks, function(err, results) {
       callback(results);
     });
+  },
+
+  newProcess: function(tree) {
+    var newTree = {};
+
+    for (var i in tree) {
+      newTree[i] = {
+        title: tree[i].title,
+        description: tree[i].description,
+        docs: tree[i].docs,
+        fileName: tree[i].fileName
+      }
+
+      // Process Sass
+      if (tree[i].sass) {
+        newTree[i].sass = {
+          variable: [],
+          mixin: [],
+          'function': []
+        }
+
+        for (var j in tree[i].sass) {
+          var obj = tree[i].sass[j];
+          newTree[i].sass[obj.context.type].push(obj);
+        }
+      }
+    }
+
+    return newTree;
+  },
+
+  newBuild: function(tree) {
+    var fs         = require('fs');
+    var handlebars = require('./lib/handlebars');
+    var path       = require('path');
+    var rimraf     = require('rimraf');
+
+    // Fetch template code
+    var componentSrc = fs.readFileSync(path.join(this.options.templates, 'component.html'));
+
+    // Compile it into Handlebars templates
+    var componentTemplate = handlebars.compile(componentSrc.toString(), {noEscape: true});
+
+    // Erase an existing build folder and recreate it
+    if (fs.existsSync(this.options.dest)) {
+      rimraf.sync(this.options.dest)
+    }
+    fs.mkdirSync(this.options.dest);
+
+    // For each component in the list, render a template with that component's data and write it to disk
+    for (var i in tree) {
+      var data = tree[i];
+
+      // Compile the page
+      var componentPage = componentTemplate(data);
+
+      // Write to disk
+      var outputPath = path.join(process.cwd(), this.options.dest, data.fileName+'.html');
+      fs.writeFileSync(outputPath, componentPage);
+    }
   }
 }
 
 module.exports = function(files, options) {
   var s = new Super(options);
   s.newParse(files, function(results) {
-    console.log(results);
+    var tree = s.newProcess(results);
+    s.newBuild(tree);
   });
 }
