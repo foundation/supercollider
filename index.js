@@ -11,13 +11,70 @@ var Super = function(options) {
 Super.prototype = {
   parse: require('./lib/parse'),
   process: require('./lib/process'),
-  build: require('./lib/build')
+  build: require('./lib/build'),
+
+  newParse: function(files, callback) {
+    var frontMatter = require('front-matter');
+    var glob = require('glob');
+    var fs = require('fs');
+    var path = require('path');
+    var sassdoc = require('sassdoc');
+    var jsdoc   = require('jsdoc3-parser');
+    var async = require('async');
+
+    var tree = {};
+    var fileTasks = [];
+    var files = glob.sync(files);
+
+    for (var file in files) {
+      fileTasks.push(function(cb) {
+        var page = {};
+
+        var fileName = path.basename(files[file], '.md');
+        var pageContents = fs.readFileSync(files[file]);
+        var pageData = frontMatter(pageContents.toString());
+        
+        // Global attributes
+        page.title = pageData.attributes.title;
+        page.description = pageData.attributes.description || '';
+
+        var parserTasks = {}
+
+        // Language-specific
+        if (pageData.attributes.sass) {
+          parserTasks['sass'] = function(cbk) {
+            sassdoc.parse(pageData.attributes.sass, {verbose: true}).then(function(data) {
+              cbk(null, data);
+            });
+          };
+        }
+
+        if (pageData.attributes.js) {
+          parserTasks['js'] = function(cbk) {
+            jsdoc(pageData.attributes.js, function(error, data) {
+              cbk(null, data)
+            });
+          }
+        }
+
+        async.parallel(parserTasks, function(err, results) {
+          for (var i in results) {
+            page[i] = results[i];
+          }
+          cb(null, page);
+        });
+      })
+    }
+
+    async.parallel(fileTasks, function(err, results) {
+      callback(results);
+    });
+  }
 }
 
-module.exports = function(options) {
+module.exports = function(files, options) {
   var s = new Super(options);
-  s.parse(function(data) {
-    var tree = s.process(data);
-    s.build(tree);
+  s.newParse(files, function(results) {
+    console.log(results);
   });
 }
