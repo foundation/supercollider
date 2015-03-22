@@ -19,8 +19,8 @@ s.adapter('js', require(path.join(__dirname, 'adapters', 'js')));
 module.exports = {
   init: function(files, options) {
     s.options = options;
-    s.parse(files, function(results) {
-      var tree = s.process(results);
+    s.parse(files, function(data) {
+      var tree = s.process(data);
       s.build(tree);
     });
   },

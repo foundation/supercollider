@@ -1,9 +1,9 @@
 var sassdoc = require('sassdoc');
 
 module.exports = {
-  parse: function(value, cbk) {
+  parse: function(value, cb) {
     sassdoc.parse(value, {verbose: true}).then(function(data) {
-      cbk(null, data);
+      cb(null, data);
     });
   },
   process: function(tree) {

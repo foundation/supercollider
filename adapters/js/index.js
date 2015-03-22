@@ -1,9 +1,9 @@
 var jsdoc = require('jsdoc3-parser');
 
 module.exports = {
-  parse: function(value, cbk) {
+  parse: function(value, cb) {
     jsdoc(value, function(error, data) {
-      cbk(null, data)
+      cb(null, data)
     });
   },
   process: function(tree) {
