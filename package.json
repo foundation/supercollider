@@ -24,7 +24,8 @@
     "marked": "^0.3.2",
     "node-sass": "^2.0.0-beta",
     "rimraf": "^2.2.8",
-    "sassdoc": "^2.0.0-rc.17"
+    "sassdoc": "^2.0.0-rc.17",
+    "through2": "^0.6.3"
   },
   "devDependencies": {
     "node-sync": "0.0.8"

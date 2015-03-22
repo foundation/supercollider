@@ -36,6 +36,8 @@ Finally, this data is passed to a Handlebars template and used to build new HTML
 
 ## Usage
 
+The plugin can be used standalone with the `init()` method.
+
 ```js
 var Super = require('supercollider');
 
@@ -44,6 +46,17 @@ Super.init('./pages/*.md', {
   adapters: ['sass', 'js'],
   dest: './build'
 });
+```
+
+Or, you can use it in the middle of a Gulp stream using the `stream()` method. It takes in a batch of Markdown files and transforms them into finished HTML files.
+
+```js
+gulp.src('./pages/*.md')
+  .pipe(Super.stream({
+    template: './template.html',
+    adapters: ['sass', 'js']
+  }))
+  .pipe(gulp.dest('./build'));
 ```
 
 ## API
@@ -58,6 +71,10 @@ Parses, processes, and builds documentation all at once. The `scss` and `js` ada
   - **adapters** (Array): a list of strings that reference the adapters to use.
   - **dest** (String): file path to write the finished HTML to.
 
+### stream(options)
+
+Parses a stream of Vinyl files and converts them into HTML files. The extension of each file is changed to `.html` in the process. The options are the same ones you can pass to `init()`, except `dest` isn't necessary.
+
 ### adapter(name, methods)
 
 Creates a custom adapter. Refer to "Custom Adapters" below to see how they work.
@@ -71,9 +88,9 @@ Creates a standalone instance of Supercollider, with no adapters loaded by defau
 
 #### parse(files, callback)
 
-Parses a glob of files for documentation. The process is asynchronous so you need a callback to run as well.
+Parses a glob of files (or a single Vinyl file) for documentation. The process is asynchronous so you need a callback to run as well.
 
-- **files** (String or Array): a glob of files to parse.
+- **files** (String, Array, Object): a glob of files to parse, or a single Vinyl file to parse.
 - **callback** (Function): a function to run when the parsing is finished. The function has one parameter, `data`, which is an array of objects, each object being a component.
 
 #### process(tree)
