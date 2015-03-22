@@ -25,12 +25,14 @@ The Markdown, as well as any documentation parsed by SassDoc or JSDoc, is conver
 {
   "title": "Component Name",
   "description": "Description of the component",
-  "fileName": "componentName"
+  "fileName": "componentName",
   "docs": "<p>General documentation for your component.</p>",
   "sass": [],
   "js": []
 }
 ```
+
+Finally, this data is passed to a Handlebars template and used to build new HTML pages, designed by *you*!
 
 ## Usage
 
