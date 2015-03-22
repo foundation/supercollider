@@ -6,18 +6,28 @@
 //   - dest: directory to output the test JSON to
 var Super = function(options) {
   this.options = options;
+  this._adapters = {};
 }
 
 Super.prototype = {
   parse: require('./lib/parse'),
   process: require('./lib/process'),
-  build: require('./lib/build')
+  build: require('./lib/build'),
+  use: require('./lib/use')
 }
 
-module.exports = function(files, options) {
-  var s = new Super(options);
-  s.parse(files, function(results) {
-    var tree = s.process(results);
-    s.build(tree);
-  });
+var s = new Super();
+
+module.exports = {
+  init: function(files, options) {
+    s.options = options;
+    s.parse(files, function(results) {
+      var tree = s.process(results);
+      s.build(tree);
+    });
+  },
+  use: function() {
+    s.use.apply(s, arguments);
+  },
+  Super: Super
 }
