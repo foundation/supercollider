@@ -23,12 +23,12 @@ The Markdown, as well as any documentation parsed by SassDoc or JSDoc, is conver
 
 ```json
 {
-  title: 'Component Name',
-  description: 'Description of the component',
-  fileName: 'componentName'
-  docs: '<p>General documentation for your component.</p>',
-  sass: [],
-  js: []
+  "title": "Component Name",
+  "description": "Description of the component",
+  "fileName": "componentName"
+  "docs": "<p>General documentation for your component.</p>",
+  "sass": [],
+  "js": []
 }
 ```
 
@@ -56,12 +56,12 @@ Parses, processes, and builds documentation all at once. The `scss` and `js` ada
   - **adapters** (Array): a list of strings that reference the adapters to use.
   - **dest** (String): file path to write the finished HTML to.
 
-### adapter(name, object)
+### adapter(name, methods)
 
 Creates a custom adapter. Refer to "Custom Adapters" below to see how they work.
 
 - **name** (String): the name of the adapter. These names are reserved and can't be used: `scss`, `js`, `title`, `description`, `fileName`.
-- **object** (Object): an object with two functions: `parse` and `process`.
+- **methods** (Object): an object with two functions: `parse` and `process`.
 
 ### Super(options)
 
@@ -82,6 +82,10 @@ Processes the contents of a data tree created with `parse()`, using each adapter
 
 Creates HTML pages for each component and writes them to disk. The template specified in `options.template` is compiled for each component. All of the variables for that component are passed in as Handlebars data. The filename of the HTML will be the same as the filename of the original Markdown file, with the extension changed to `.html`.
 
+#### adapter(use, methods)
+
+Adds a custom adapter. Refer to the documentation for for `adapter()` farther up the page.
+
 ## Custom Adapters
 
 An adapter is a set of functions that hook into a documentation generator to fetch data associated with a component. This data is passed to the Handlebars template used to render the component's documentation.
@@ -97,24 +101,29 @@ Supercollider has two built-in adapters: `sass`, which uses SassDoc, and `js`, w
   - The processing function accepts one parameter, *tree*, which is the original object returned by the `parse()` function.
   - Within this function you can modify the data and `return` a new object, which will override the original.
 
-Here's an example adapter, which is the built-in SassDoc one:
+Here's what the built-in SassDoc adapter looks like.
 
 ```js
 var sassdoc = require('sassdoc');
 
 module.exports = {
+  // Parses documentation from the file path passed in through "value"
   parse: function(value, cb) {
     sassdoc.parse(value, {verbose: true}).then(function(data) {
+      // When the parsing is done, the callback passes back the data as-is
       cb(null, data);
     });
   },
+
+  // Processes the raw SassDoc data to organize it better
   process: function(tree) {
     var sass = {
-      variable: [],
-      mixin: [],
+      'variable': [],
+      'mixin': [],
       'function': []
     }
 
+    // The big array of objects is sorted by type into three arrays
     for (var i in tree) {
       var obj = tree[i];
       sass[obj.context.type].push(obj);
