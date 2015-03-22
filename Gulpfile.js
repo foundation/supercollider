@@ -3,7 +3,7 @@ var Super = require('./index');
 
 gulp.task('default', function() {
   Super.init('test/pages/*.md', {
-    templates: './test/templates',
+    template: './test/template.html',
     adapters: ['sass', 'js'],
     dest: './_build'
   });
