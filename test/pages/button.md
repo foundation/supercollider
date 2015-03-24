@@ -9,8 +9,12 @@ Making a button is easy as eff.
 
 ## Basic Button
 
-```html
+```html_example
 <a href="#" class="button">Button</a>
 ```
 
-<a href="#" class="button">Button</a>
+```css
+.button {
+  
+}
+```
