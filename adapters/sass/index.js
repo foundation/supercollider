@@ -1,4 +1,5 @@
 var sassdoc = require('sassdoc');
+var makred = require('marked');
 
 module.exports = {
   parse: function(value, cb) {

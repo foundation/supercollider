@@ -7,6 +7,8 @@ js: test/js/button.js
 
 Making a button is easy as eff.
 
+## Basic Button
+
 ```html
 <a href="#" class="button">Button</a>
 ```
