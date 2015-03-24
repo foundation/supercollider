@@ -36,7 +36,7 @@ Finally, this data is passed to a Handlebars template and used to build new HTML
 
 ## Usage
 
-The plugin can be used standalone with the `init()` method.
+The plugin can be used standalone or with the Gulp build system. To use it standalone, call `supercollider.init()` with a glob of files as the first parameter, and a `dest` parameter in the config object.
 
 ```js
 var Super = require('supercollider');
@@ -48,11 +48,11 @@ Super.init('./pages/*.md', {
 });
 ```
 
-Or, you can use it in the middle of a Gulp stream using the `stream()` method. It takes in a batch of Markdown files and transforms them into finished HTML files.
+You can also omit the source and destination settings, and use the same method in the middle of a Gulp stream. The function takes in a folder of Markdown files, and transforms them into compiled HTML files.
 
 ```js
 gulp.src('./pages/*.md')
-  .pipe(Super.stream({
+  .pipe(Super.init({
     template: './template.html',
     adapters: ['sass', 'js']
   }))
@@ -65,19 +65,15 @@ gulp.src('./pages/*.md')
 
 Parses, processes, and builds documentation all at once. The `scss` and `js` adapters are available by default.
 
-- **files** (String): a glob of files to process. Each file is a component, and can be attached to zero or more adapters to documentation generators.
+- **files** (String): a glob of files to process. Each file is a component, and can be attached to zero or more adapters to documentation generators. Don't use this setting when working with Gulp streams.
 - **options** (Object):
   - **template** (String): path to the Handlebars template to use for each component.
   - **adapters** (Array): a list of strings that reference the adapters to use.
   - **dest** (String): file path to write the finished HTML to.
 
-### stream(options)
-
-Parses a stream of Vinyl files and converts them into HTML files. The extension of each file is changed to `.html` in the process. The options are the same ones you can pass to `init()`, except `dest` isn't necessary.
-
 ### adapter(name, methods)
 
-Creates a custom adapter. Refer to "Custom Adapters" below to see how they work.
+Creates a custom adapter to parse documentation. Refer to "Custom Adapters" below to see how they work.
 
 - **name** (String): the name of the adapter. These names are reserved and can't be used: `scss`, `js`, `title`, `description`, `fileName`.
 - **methods** (Object): an object with two functions: `parse` and `process`.
@@ -86,9 +82,13 @@ Creates a custom adapter. Refer to "Custom Adapters" below to see how they work.
 
 Creates a standalone instance of Supercollider, with no adapters loaded by default. With the standalone instance, you can run any of the three steps in the process separately.
 
+```js
+var Super = require('supercollider');
+var s = new Super.Super();
+
 #### parse(files, callback)
 
-Parses a glob of files (or a single Vinyl file) for documentation. The process is asynchronous so you need a callback to run as well.
+Parses a glob of files (or a single Vinyl file) for documentation. The process is asynchronous, so you need a callback to run as well.
 
 - **files** (String, Array, Object): a glob of files to parse, or a single Vinyl file to parse.
 - **callback** (Function): a function to run when the parsing is finished. The function has one parameter, `data`, which is an array of objects, each object being a component.
@@ -103,7 +103,7 @@ Creates HTML pages for each component and writes them to disk. The template spec
 
 #### adapter(use, methods)
 
-Adds a custom adapter. Refer to the documentation for for `adapter()` farther up the page.
+Adds a custom adapter. Refer to the documentation for `adapter()` farther up the page.
 
 ## Custom Adapters
 
