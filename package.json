@@ -22,10 +22,11 @@
     "highlight.js": "^8.4.0",
     "jsdoc3-parser": "^1.0.4",
     "marked": "^0.3.2",
-    "node-sass": "^2.0.0-beta",
     "rimraf": "^2.2.8",
     "sassdoc": "^2.0.0-rc.17",
-    "through2": "^0.6.3"
+    "through2": "^0.6.3",
+    "vinyl": "^0.4.6",
+    "vinyl-fs": "^1.0.0"
   },
   "devDependencies": {
     "node-sync": "0.0.8"

@@ -3,7 +3,7 @@ var Super = require('./index');
 
 gulp.task('stream', function() {
   gulp.src('./test/pages/*.md')
-    .pipe(Super.stream({
+    .pipe(Super.init({
       template: './test/template.html',
       adapters: ['sass', 'js']
     }))
@@ -11,7 +11,9 @@ gulp.task('stream', function() {
 });
 
 gulp.task('default', function() {
-  Super.init('test/pages/*.md', {
+  Super.init({
+    src: 'test/pages/*.md',
+    base: 'test/pages',
     template: './test/template.html',
     adapters: ['sass', 'js'],
     dest: './_build'

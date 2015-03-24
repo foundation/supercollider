@@ -1,5 +1,7 @@
 var path    = require('path');
 var through = require('through2');
+var vfs     = require('vinyl-fs');
+var fs      = require('fs');
 
 var Super = function(options) {
   this.options = options;
@@ -18,33 +20,40 @@ s.adapter('sass', require(path.join(__dirname, 'adapters', 'sass')));
 s.adapter('js', require(path.join(__dirname, 'adapters', 'js')));
 
 module.exports = {
-  init: function(files, options) {
-    s.options = options;
-    
-    s.parse(files, function(data) {
-      var tree = s.process(data);
-      s.build(tree);
-    });
-  },
-  stream: function(options) {
+  init: function(options) {
     s.options = options;
 
-    return through.obj(function(file, encoding, done) {
-      var _this = this;
+    var parse = function() {
+      return through.obj(function(file, encoding, done) {
+        var _this = this;
 
-      s.parse(file, function(data) {
-        var tree = s.process(data);
-        var ext = path.extname(file.path);
+        s.parse(file, function(data) {
+          var tree = s.process(data);
+          var ext = path.extname(file.path);
 
-        // Change the file extension to .html
-        file.path = file.path.replace(new RegExp(ext+'$'), '.html');
-        // Replace the Markdown file's contents with the new HTML
-        file.contents = new Buffer(s.build(tree));
+          file.path = file.path.replace(new RegExp(ext+'$'), '.html');
+          file.contents = new Buffer(s.build(tree));
 
-        _this.push(file);
-        return done();
+          if (options.dest) {
+            var filePath = path.join(options.dest, path.basename(file.path));
+            console.log(filePath);
+            fs.writeFileSync(filePath, file.contents.toString());
+          }
+          else {
+            _this.push(file);
+          }
+
+          return done();
+        });
       });
-    });
+    }
+
+    if (options.src) {
+      vfs.src(options.src, {base: options.base}).pipe(parse());
+    }
+    else {
+      return parse();
+    }
   },
   adapter: function() {
     s.adapter.apply(s, arguments);
