@@ -26,7 +26,6 @@ module.exports = {
 
     var parse = function() {
       return through.obj(function(file, enc, cb) {
-        var _this = this;
         s.parse(file, function(data) {
           var tree = s.process(data);
           var ext = path.extname(file.path);
@@ -39,8 +38,7 @@ module.exports = {
             fs.writeFileSync(filePath, file.contents.toString());
           }
           else {
-            _this.push(file);
-            cb();
+            cb(null, file);
           }
         });
       });
