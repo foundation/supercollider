@@ -22,15 +22,22 @@ s.adapter('js', require(path.join(__dirname, 'adapters', 'js')));
 module.exports = {
   init: function(options) {
     s.options = options;
+    var debugTree = [];
 
-    var parse = function() {
+    var transform = function() {
       return through.obj(function(file, enc, cb) {
         s.parse(file, function(data) {
           var tree = s.process(data);
           var ext = path.extname(file.path);
 
+          // Change the extension of the incoming file to .html,
+          // and replace the Markdown contents with rendered HTML
           file.path = file.path.replace(new RegExp(ext+'$'), '.html');
           file.contents = new Buffer(s.build(tree));
+
+          if (options.debug) {
+            debugTree.push(tree[0]);
+          }
 
           if (options.dest) {
             var filePath = path.join(options.dest, path.basename(file.path));
@@ -44,10 +51,16 @@ module.exports = {
     }
 
     if (options.src) {
-      vfs.src(options.src, {base: options.base}).pipe(parse());
+      var stream = vfs.src(options.src, {base: options.base}).pipe(transform());
+
+      if (options.debug) {
+        stream.on('finish', function() {
+          fs.writeFile(options.debug, JSON.stringify(debugTree, null, '  '));
+        });
+      }
     }
     else {
-      return parse();
+      return transform();
     }
   },
   adapter: function() {
