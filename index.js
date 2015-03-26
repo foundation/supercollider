@@ -2,6 +2,7 @@ var path    = require('path');
 var through = require('through2-concurrent');
 var vfs     = require('vinyl-fs');
 var fs      = require('fs');
+var through = require('through2');
 
 var Super = function(options) {
   this.options = options;
@@ -24,7 +25,8 @@ module.exports = {
     s.options = options;
 
     var parse = function() {
-      return require('map-stream')(function(file, cb) {
+      return through.obj(function(file, enc, cb) {
+        var _this = this;
         s.parse(file, function(data) {
           var tree = s.process(data);
           var ext = path.extname(file.path);
@@ -37,9 +39,9 @@ module.exports = {
             fs.writeFileSync(filePath, file.contents.toString());
           }
           else {
-            cb(null, file);
+            _this.push(file);
+            cb();
           }
-
         });
       });
     }
