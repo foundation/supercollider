@@ -1,5 +1,4 @@
 var path    = require('path');
-var through = require('through2-concurrent');
 var vfs     = require('vinyl-fs');
 var fs      = require('fs');
 var through = require('through2');
