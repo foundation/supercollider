@@ -7,25 +7,19 @@ module.exports = {
     });
   },
   process: function(tree) {
-    var newTree = {
-      'class': [],
-      'function': [],
-      'member': [],
-      'event': []
-    }
+    var js = {};
 
     for (var i in tree) {
-      var item = tree[i];
+      var obj = tree[i];
+      var group = obj.kind;
 
-      if (item.undocumented === true || item.access === 'private') continue;
+      if (obj.undocumented === true || obj.access === 'private') continue;
+      if (group === 'member' && obj.memberof.indexOf('defaults') < 0) continue;
 
-      var group = item.kind;
-      if (newTree[group]) {
-        if (group === 'member' && item.memberof.indexOf('defaults') < 0) continue;
-        newTree[group].push(item)
-      }
+      if (!js[group]) js[group] = [];
+      js[group].push(obj)
     }
 
-    return newTree;
+    return js;
   }
 }

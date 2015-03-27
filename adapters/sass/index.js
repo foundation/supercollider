@@ -1,5 +1,4 @@
 var sassdoc = require('sassdoc');
-var makred = require('marked');
 
 module.exports = {
   parse: function(value, cb) {
@@ -8,15 +7,14 @@ module.exports = {
     });
   },
   process: function(tree) {
-    var sass = {
-      variable: [],
-      mixin: [],
-      'function': []
-    }
+    var sass = {};
 
     for (var i in tree) {
       var obj = tree[i];
-      sass[obj.context.type].push(obj);
+      var group = obj.context.type
+
+      if (!sass[group]) sass[group] = [];
+      sass[group].push(obj);
     }
 
     return sass;
