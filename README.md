@@ -85,6 +85,7 @@ Creates a standalone instance of Supercollider, with no adapters loaded by defau
 ```js
 var Super = require('supercollider');
 var s = new Super.Super();
+```
 
 #### parse(files, callback)
 
@@ -99,7 +100,7 @@ Processes the contents of a data tree created with `parse()`, using each adapter
 
 #### build(tree)
 
-Creates HTML pages for each component and writes them to disk. The template specified in `options.template` is compiled for each component. All of the variables for that component are passed in as Handlebars data. The filename of the HTML will be the same as the filename of the original Markdown file, with the extension changed to `.html`.
+Creates HTML pages for each component in the tree and writes them to disk. The template specified in `options.template` is compiled for each component. All of the variables for that component are passed in as Handlebars data. The filename of the HTML will be the same as the filename of the original Markdown file, with the extension changed to `.html`.
 
 #### adapter(use, methods)
 
