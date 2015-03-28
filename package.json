@@ -1,7 +1,7 @@
 {
   "name": "supercollider",
   "version": "0.0.1",
-  "description": "A documentation generator that combines Hologram, SassDoc, and JSDoc into a single structure.",
+  "description": "Documentation generator that can combine data from multiple parsers, such as SassDoc and JSDoc.",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -12,6 +12,10 @@
   },
   "author": "ZURB",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gakimball/supercollider.git"
+  },
   "dependencies": {
     "async": "^0.9.0",
     "front-matter": "^1.0.0",

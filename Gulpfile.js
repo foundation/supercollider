@@ -15,6 +15,7 @@ gulp.task('default', function() {
     src: 'test/*.md',
     template: './test/template.html',
     adapters: ['sass', 'js'],
-    dest: './_build'
+    dest: './_build',
+    handlebars: require('./lib/handlebars')
   });
 });
