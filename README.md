@@ -4,9 +4,9 @@ A fancy documentation generator that can mash up documentation from multiple sou
 
 ## How it Works
 
-Supercollider parses a glob of Markdown files, pulls in relevant documentation from Sass and JavaScript files, and combines it all into one JSON object, which is passed to a Handlebars template that renders the final page.
+Supercollider parses a glob of Markdown files, pulls in relevant documentation from Sass and JavaScript files, and combines it all into one JSON object, which is passed to a Handlebars template that renders the final HTML page.
 
-A typical page will look like this:
+A typical documentation page will look like this:
 
 ```markdown
 ---
@@ -32,7 +32,7 @@ The Markdown, as well as any documentation parsed by SassDoc or JSDoc, is conver
 }
 ```
 
-Finally, this data is passed to a Handlebars template and used to build new HTML pages, designed by *you*!
+Finally, this data is passed to a Handlebars template and used to build new HTML pages, designed by *you*! Supercollider doesn't include any templates or themes; it just gives you the big JavaScript object you need to write a template.
 
 ## Usage
 
@@ -48,7 +48,7 @@ Super.init('./pages/*.md', {
 });
 ```
 
-You can also omit the source and destination settings, and use the same method in the middle of a Gulp stream. The function takes in a folder of Markdown files, and transforms them into compiled HTML files.
+You can also omit the source and destination settings, and use the same method in the middle of a Gulp stream (or any Node stream that happens to use Vinyl files). The function takes in a glob of Markdown files, and transforms them into compiled HTML files.
 
 ```js
 gulp.src('./pages/*.md')
@@ -70,6 +70,7 @@ Parses, processes, and builds documentation all at once. The `scss` and `js` ada
   - **template** (String): path to the Handlebars template to use for each component.
   - **adapters** (Array): a list of strings that reference the adapters to use.
   - **dest** (String): file path to write the finished HTML to.
+  - **handlebars** (Object): a custom instance of Handlebars to use when rendering the final HTML. This allows you to pass in custom helpers for use in your template.
 
 ### adapter(name, methods)
 
@@ -89,10 +90,12 @@ var s = new Super.Super();
 
 #### parse(files, callback)
 
-Parses a glob of files (or a single Vinyl file) for documentation. The process is asynchronous, so you need a callback to run as well.
+Parses a glob of files, or a single Vinyl file, for documentation. The process is asynchronous, so you need a callback to run as well.
 
 - **files** (String, Array, Object): a glob of files to parse, or a single Vinyl file to parse.
 - **callback** (Function): a function to run when the parsing is finished. The function has one parameter, `data`, which is an array of objects, each object being a component.
+
+Returns an array of objects, each object being a file that was parsed.
 
 #### process(tree)
 
@@ -101,6 +104,8 @@ Processes the contents of a data tree created with `parse()`, using each adapter
 #### build(tree)
 
 Creates HTML pages for each component in the tree and writes them to disk. The template specified in `options.template` is compiled for each component. All of the variables for that component are passed in as Handlebars data. The filename of the HTML will be the same as the filename of the original Markdown file, with the extension changed to `.html`.
+
+This method doesn't return anything; it just (synchronously) writes the files to disk.
 
 #### adapter(use, methods)
 
