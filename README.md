@@ -79,6 +79,10 @@ Creates a custom adapter to parse documentation. Refer to "Custom Adapters" belo
 - **name** (String): the name of the adapter. These names are reserved and can't be used: `scss`, `js`, `title`, `description`, `fileName`.
 - **methods** (Object): an object with two functions: `parse` and `process`.
 
+### tree
+
+An array containing all of the processed data from the last time Supercollider ran.
+
 ### Super(options)
 
 Creates a standalone instance of Supercollider, with no adapters loaded by default. With the standalone instance, you can run any of the three steps in the process separately.
