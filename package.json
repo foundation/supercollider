@@ -1,6 +1,6 @@
 {
   "name": "supercollider",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Documentation generator that can combine data from multiple parsers, such as SassDoc and JSDoc.",
   "main": "index.js",
   "directories": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "gulp",
-    "test": "gulp test"
+    "test": "mocha"
   },
   "author": "ZURB",
   "license": "MIT",
@@ -30,5 +30,8 @@
     "through2": "^0.6.3",
     "vinyl-fs": "^1.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "mocha": "^2.2.4",
+    "vinyl": "^0.4.6"
+  }
 }
