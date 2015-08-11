@@ -1,7 +1,7 @@
 ---
 title: Button
 description: A button is a button.
-sass: test/grid/*.scss
+sass: test/example.scss
 js: test/example.js
 ---
 
