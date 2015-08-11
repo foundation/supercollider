@@ -70,6 +70,7 @@ Parses, processes, and builds documentation all at once. The `scss` and `js` ada
   - **template** (String): path to the Handlebars template to use for each component.
   - **adapters** (Array): a list of strings that reference the adapters to use.
   - **dest** (String): file path to write the finished HTML to.
+  - **marked** (Object): a custom instance of Marked to use when parsing the markdown of your documentation pages. This allows you to pass in custom rendering methods.
   - **handlebars** (Object): a custom instance of Handlebars to use when rendering the final HTML. This allows you to pass in custom helpers for use in your template.
 
 ### adapter(name, methods)
