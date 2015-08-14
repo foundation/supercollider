@@ -7,7 +7,6 @@ var Super = function(options) {
 
 Super.prototype = {
   parse: require('./lib/parse'),
-  process: require('./lib/process'),
   build: require('./lib/build'),
   adapter: require('./lib/adapter')
 }
