@@ -25,7 +25,7 @@ The Markdown, as well as any documentation parsed by SassDoc or JSDoc, is conver
 {
   "title": "Component Name",
   "description": "Description of the component",
-  "fileName": "componentName",
+  "fileName": "componentName.html",
   "docs": "<p>General documentation for your component.</p>",
   "sass": [],
   "js": []
@@ -36,15 +36,16 @@ Finally, this data is passed to a Handlebars template and used to build new HTML
 
 ## Usage
 
-The plugin can be used standalone or with the Gulp build system. To use it standalone, call `supercollider.init()` with a glob of files as the first parameter, and a `dest` parameter in the config object.
+The plugin can be used standalone or with the Gulp build system. To use it standalone, call `supercollider.init()` with `src` being a glob of files, and `dest` being an output folder.
 
 ```js
 var Super = require('supercollider');
 
-Super.init('./pages/*.md', {
+Super.init({
+  src: './pages/*.md',
+  dest: './build',
   template: './template.html',
-  adapters: ['sass', 'js'],
-  dest: './build'
+  adapters: ['sass', 'js']
 });
 ```
 
@@ -61,24 +62,24 @@ gulp.src('./pages/*.md')
 
 ## API
 
-### init(files, options)
+### init(options)
 
-Parses, processes, and builds documentation all at once. The `scss` and `js` adapters are available by default.
+Parses, processes, and builds documentation all at once. The built-in `scss` and `js` adapters are available by default.
 
-- **files** (String): a glob of files to process. Each file is a component, and can be attached to zero or more adapters to documentation generators. Don't use this setting when working with Gulp streams.
 - **options** (Object):
+  - **src** (String or Array): a glob of files to process. Each file is a component, and can be attached to zero or more adapters to documentation generators.
   - **template** (String): path to the Handlebars template to use for each component.
-  - **adapters** (Array): a list of strings that reference the adapters to use.
+  - **adapters** (Array<String>): adapters to use.
   - **dest** (String): file path to write the finished HTML to.
   - **marked** (Object): a custom instance of Marked to use when parsing the markdown of your documentation pages. This allows you to pass in custom rendering methods.
   - **handlebars** (Object): a custom instance of Handlebars to use when rendering the final HTML. This allows you to pass in custom helpers for use in your template.
 
-### adapter(name, methods)
+### adapter(name, func)
 
-Creates a custom adapter to parse documentation. Refer to "Custom Adapters" below to see how they work.
+Adds a custom adapter to parse documentation. Refer to "Custom Adapters" below to see how they work.
 
-- **name** (String): the name of the adapter. These names are reserved and can't be used: `scss`, `js`, `title`, `description`, `fileName`.
-- **methods** (Object): an object with two functions: `parse` and `process`.
+- **name** (String): the name of the adapter. These names are reserved and can't be used: `scss`, `js`, `docs`, `fileName`.
+- **func** (Object): a function that accepts an input parameter and runs a callback with the parsed data.
 
 ### tree
 
@@ -86,81 +87,72 @@ An array containing all of the processed data from the last time Supercollider r
 
 ### Super(options)
 
-Creates a standalone instance of Supercollider, with no adapters loaded by default. With the standalone instance, you can run any of the three steps in the process separately.
+Creates a standalone instance of Supercollider, with no adapters loaded by default.
 
 ```js
 var Super = require('supercollider');
 var s = new Super.Super();
 ```
 
-#### parse(files, callback)
+#### tree
 
-Parses a glob of files, or a single Vinyl file, for documentation. The process is asynchronous, so you need a callback to run as well.
+An array containing the data for every file parsed so far.
 
-- **files** (String, Array, Object): a glob of files to parse, or a single Vinyl file to parse.
-- **callback** (Function): a function to run when the parsing is finished. The function has one parameter, `data`, which is an array of objects, each object being a component.
+#### parse(file, callback)
 
-Returns an array of objects, each object being a file that was parsed.
+Parse a Vinyl file to get the documentation. The data is added to the `tree` property of the Supercollider instance.
 
-#### process(tree)
+- **file** (Object): Vinyl file to parse.
+- **callback** (Function): a function to run when the parsing is finished. The function has two parameters: `error` and `data`.
 
-Processes the contents of a data tree created with `parse()`, using each adapter's `process` method. Returns a new array of objects with reworked formatting.
+No return value.
 
-#### build(tree)
+#### build(data)
 
-Creates HTML pages for each component in the tree and writes them to disk. The template specified in `options.template` is compiled for each component. All of the variables for that component are passed in as Handlebars data. The filename of the HTML will be the same as the filename of the original Markdown file, with the extension changed to `.html`.
+Creates an HTML page for a component, using the template specified by `options.template`, with the value of `data` used as Handlebars data.
 
-This method doesn't return anything; it just (synchronously) writes the files to disk.
+- **data** (Object): component object to convert to HTML.
 
-#### adapter(use, methods)
+Returns a String of HTML.
 
-Adds a custom adapter. Refer to the documentation for `adapter()` farther up the page.
+#### adapter(name, func)
+
+Adds a custom adapter to parse documentation. Refer to "Custom Adapters" below to see how they work.
+
+- **name** (String): the name of the adapter. These names are reserved and can't be used: `scss`, `js`, `docs`, `fileName`.
+- **func** (Object): a function that accepts an input parameter and runs a callback with the parsed data.
+
+No return value.
 
 ## Custom Adapters
 
-An adapter is a set of functions that hook into a documentation generator to fetch data associated with a component. This data is passed to the Handlebars template used to render the component's documentation.
+An adapter is a function that hooks into a documentation generator to fetch data associated with a component. This data is passed to the Handlebars template used to render the component's documentation.
 
-Supercollider has two built-in adapters: `sass`, which uses SassDoc, and `js`, which uses JSDoc. You can create your own by calling the `adapter()` method on an instance of Supercollider. An adapter is an object with two methods: `parse()` and `process()`.
-
-- **Parsing** is the act of fetching the raw data from the documentation generator. The parsing function should accept two parameters:
-  - **value** is the value entered into the component page's front matter. Typically this is a file path to be used by the documentation generator.
-  - **cb** is a callback to be run when the data is ready. This allows you to parse files asynchronously if needed. The callback should return two parameters:
-    - *error*, which can be an instance of an error, or `null` if there's no error.
-    - *data*, the data parsed from the generator.
-- **Processing** is the act of refining the data to make it easier to use in templates. Although an adapter needs a parse method, it's more or less optional, depending on how your data is initially formatted. Unlike parsing, processing must be done synchronously.
-  - The processing function accepts one parameter, *tree*, which is the original object returned by the `parse()` function.
-  - Within this function you can modify the data and `return` a new object, which will override the original.
+Supercollider has two built-in adapters: `sass`, which uses SassDoc, and `js`, which uses JSDoc. You can create your own by calling the `adapter()` method on an instance of Supercollider. An adapter is an asynchronous function that passes parsed data through a callback.
 
 Here's what the built-in SassDoc adapter looks like.
 
 ```js
 var sassdoc = require('sassdoc');
 
-module.exports = {
-  // Parses documentation from the file path passed in through "value"
-  parse: function(value, cb) {
-    sassdoc.parse(value, {verbose: true}).then(function(data) {
-      // When the parsing is done, the callback passes back the data as-is
-      cb(null, data);
-    });
-  },
+module.exports = function(value, cb) {
+  sassdoc.parse(value, {verbose: true}).then(function(data) {
+    cb(null, processTree(data));
+  });
+}
 
-  // Processes the raw SassDoc data to organize it better
-  process: function(tree) {
-    var sass = {
-      'variable': [],
-      'mixin': [],
-      'function': []
-    }
+function processTree(tree) {
+  var sass = {};
 
-    // The big array of objects is sorted by type into three arrays
-    for (var i in tree) {
-      var obj = tree[i];
-      sass[obj.context.type].push(obj);
-    }
+  for (var i in tree) {
+    var obj = tree[i];
+    var group = obj.context.type
 
-    return sass;
+    if (!sass[group]) sass[group] = [];
+    sass[group].push(obj);
   }
+
+  return sass;
 }
 ```
 

@@ -1,6 +1,6 @@
 var path    = require('path');
 
-var Super = function(options) {
+function Super(options) {
   this.options = options;
   this.adapters = {};
   this.tree = [];
