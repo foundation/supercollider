@@ -1,9 +1,13 @@
 var sassdoc = require('sassdoc');
 
-module.exports = function(value, cb) {
-  sassdoc.parse(value, {verbose: true}).then(function(data) {
+module.exports = function(value, config, cb) {
+  sassdoc.parse(value, config).then(function(data) {
     cb(null, processTree(data));
   });
+}
+
+module.exports.config = {
+  verbose: false
 }
 
 function processTree(tree) {

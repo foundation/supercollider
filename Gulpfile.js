@@ -6,6 +6,9 @@ gulp.task('stream', function() {
     .pipe(Super.init({
       template: './test/template.html',
       adapters: ['sass', 'js'],
+      config: {
+        'sass': { verbose: true }
+      },
       marked: require('./test/marked'),
       handlebars: require('./test/handlebars')
     }))
@@ -18,6 +21,9 @@ gulp.task('default', function() {
     dest: './_build',
     template: './test/template.html',
     adapters: ['sass', 'js'],
+    config: {
+      'sass': { verbose: true }
+    },
     marked: require('./test/marked'),
     handlebars: require('./test/handlebars')
   });

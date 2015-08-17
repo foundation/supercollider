@@ -1,6 +1,6 @@
 var jsdoc = require('jsdoc3-parser');
 
-module.exports = function(value, cb) {
+module.exports = function(value, config, cb) {
   jsdoc(value, function(error, data) {
     cb(null, processTree(data));
   });
