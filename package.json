@@ -7,7 +7,6 @@
     "test": "test"
   },
   "scripts": {
-    "start": "gulp",
     "test": "mocha"
   },
   "author": "ZURB",
@@ -30,9 +29,7 @@
     "vinyl-fs": "^1.0.0"
   },
   "devDependencies": {
-    "gulp": "^3.9.0",
     "highlight.js": "^8.4.0",
-    "mocha": "^2.2.4",
-    "vinyl": "^0.4.6"
+    "mocha": "^2.2.4"
   }
 }
