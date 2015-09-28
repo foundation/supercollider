@@ -72,6 +72,7 @@ Parses, processes, and builds documentation all at once. The built-in `scss` and
   - **adapters** (Array<String>): adapters to use.
   - **dest** (String): file path to write the finished HTML to.
   - **marked** (Object): a custom instance of Marked to use when parsing the markdown of your documentation pages. This allows you to pass in custom rendering methods.
+    - This value can also be `false`, which disables Markdown parsing on the page body altogether.
   - **handlebars** (Object): a custom instance of Handlebars to use when rendering the final HTML. This allows you to pass in custom helpers for use in your template.
   - **extension** (String): extension to change files to after processing. The default is `html`.
 
