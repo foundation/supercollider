@@ -1,3 +1,4 @@
+var exec   = require('child_process').execFile;
 var extend = require('util')._extend;
 var mocha  = require('mocha');
 var rimraf = require('rimraf');
@@ -40,5 +41,18 @@ describe('Supercollider', function() {
       .pipe(vfs.dest(OUTPUT));
 
     s.on('finish', done);
+  });
+
+  it('works from the command line', function(done) {
+    var args = [
+      '--source', SOURCES,
+      '--template', CONFIG.template,
+      '--adapters', CONFIG.adapters.join(','),
+      '--dest', OUTPUT,
+      '--marked', './test/fixtures/marked.js',
+      '--handlebars', './test/fixtures/handlebars.js'
+    ];
+
+    exec('./bin/supercollider.js', args, done);
   });
 });

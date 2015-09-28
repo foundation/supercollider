@@ -3,6 +3,9 @@
   "version": "0.2.0",
   "description": "Documentation generator that can combine data from multiple parsers, such as SassDoc and JSDoc.",
   "main": "index.js",
+  "bin": {
+    "supercollider": "./bin/supercollider.js"
+  },
   "directories": {
     "test": "test"
   },
@@ -17,6 +20,7 @@
   },
   "dependencies": {
     "async": "^0.9.0",
+    "commander": "^2.8.1",
     "front-matter": "^1.0.0",
     "glob": "^4.3.5",
     "handlebars": "^2.0.0",
