@@ -34,111 +34,100 @@ The Markdown, as well as any documentation parsed by SassDoc or JSDoc, is conver
 
 Finally, this data is passed to a Handlebars template and used to build new HTML pages, designed by *you*! Supercollider doesn't include any templates or themes; it just gives you the big JavaScript object you need to write a template.
 
-## Usage
+## Setup
 
-The plugin can be used standalone or with the Gulp build system. To use it standalone, call `supercollider.init()` with `src` being a glob of files, and `dest` being an output folder.
+Before running the parser, call `Supercollider.config()` with an object of configuration settings. Refer to the [configuration](#configoptions) section below to see every option.
 
 ```js
 var Super = require('supercollider');
 
-Super.init({
+Super.config({
   src: './pages/*.md',
   dest: './build',
-  template: './template.html',
-  adapters: ['sass', 'js']
+  template: './template.html'
 });
 ```
 
-You can also omit the source and destination settings, and use the same method in the middle of a Gulp stream (or any Node stream that happens to use Vinyl files). The function takes in a glob of Markdown files, and transforms them into compiled HTML files.
+By default, Supercollider can parse Markdown into HTML for you. It also includes two built-in *adapters*, which hook into external documentation generators. The built-in adapters are called `sass` (SassDoc) and `js` (JSDoc). Enbale them with the `.adapter()` method.
+
+```js
+Super
+  .adapter('sass')
+  .adapter('js');
+```
+
+You can also create custom adapters by passing in a function as a second parameter. Refer to [adapter()](#adaptername-func) below.
+
+## Usage
+
+The plugin can be used standalone or with the [Gulp](https://github.com/gulpjs/gulp) build system.
+
+To use the library standalone, call `Supercollider.init()` with the option `src` being a glob of files, and `dest` being an output folder.
+
+```js
+Super.init();
+```
+
+The `.init()` function returns a stream. You can listen to the `finish` event to know when the processing is done.
+
+```
+var stream = Super.init();
+stream.on('finish', function() {
+  // ...
+});
+```
+
+You can also omit the `src` and `dest` settings, and use the same method in the middle of a Gulp stream (or any Node stream that happens to use [Vinyl](https://github.com/gulpjs/vinyl) files). The function takes in a glob of Markdown files, and transforms them into compiled HTML files.
 
 ```js
 gulp.src('./pages/*.md')
-  .pipe(Super.init({
-    template: './template.html',
-    adapters: ['sass', 'js']
-  }))
+  .pipe(Super.init())
   .pipe(gulp.dest('./build'));
 ```
 
 ## API
 
-### init(options)
+### config(options)
 
-Parses, processes, and builds documentation all at once. The built-in `scss` and `js` adapters are available by default.
+Sets configuration settings.
 
 - **options** (Object):
-  - **src** (String or Array): a glob of files to process. Each file is a component, and can be attached to zero or more adapters to documentation generators.
   - **template** (String): path to the Handlebars template to use for each component.
-  - **adapters** (Array<String>): adapters to use.
+  - **src** (String or Array): a glob of files to process. Each file is a component, and can be attached to zero or more adapters to documentation generators.
   - **dest** (String): file path to write the finished HTML to.
   - **marked** (Object): a custom instance of Marked to use when parsing the markdown of your documentation pages. This allows you to pass in custom rendering methods.
     - This value can also be `false`, which disables Markdown parsing on the page body altogether.
   - **handlebars** (Object): a custom instance of Handlebars to use when rendering the final HTML. This allows you to pass in custom helpers for use in your template.
   - **extension** (String): extension to change files to after processing. The default is `html`.
 
+### init()
+
+Parses and builds documentation. Returns a Node stream of Vinyl files.
+
 ### adapter(name, func)
 
-Adds a custom adapter to parse documentation. Refer to "Custom Adapters" below to see how they work.
+Adds a adapter to parse documentation. Refer to [Custom Adapters](#custom-adapters) below to see how they work.
 
 - **name** (String): the name of the adapter. These names are reserved and can't be used: `scss`, `js`, `docs`, `fileName`.
-- **func** (Object): a function that accepts an input parameter and runs a callback with the parsed data.
+- **func** (Function): a function that accepts an input parameter and runs a callback with the parsed data.
 
 ### tree
 
-An array containing all of the processed data from the last time Supercollider ran.
-
-### Super(options)
-
-Creates a standalone instance of Supercollider, with no adapters loaded by default.
-
-```js
-var Super = require('supercollider');
-var s = new Super.Super();
-```
-
-#### tree
-
-An array containing the data for every file parsed so far.
-
-#### parse(file, callback)
-
-Parse a Vinyl file to get the documentation. The data is added to the `tree` property of the Supercollider instance.
-
-- **file** (Object): Vinyl file to parse.
-- **callback** (Function): a function to run when the parsing is finished. The function has two parameters: `error` and `data`.
-
-No return value.
-
-#### build(data)
-
-Creates an HTML page for a component, using the template specified by `options.template`, with the value of `data` used as Handlebars data.
-
-- **data** (Object): component object to convert to HTML.
-
-Returns a String of HTML.
-
-#### adapter(name, func)
-
-Adds a custom adapter to parse documentation. Refer to "Custom Adapters" below to see how they work.
-
-- **name** (String): the name of the adapter. These names are reserved and can't be used: `scss`, `js`, `docs`, `fileName`.
-- **func** (Object): a function that accepts an input parameter and runs a callback with the parsed data.
-
-No return value.
+An array containing all of the processed data from the last time Supercollider ran. Each item in the array is a page that was processed.
 
 ## Custom Adapters
 
 An adapter is a function that hooks into a documentation generator to fetch data associated with a component. This data is passed to the Handlebars template used to render the component's documentation.
 
-Adapters can have an optional configuration object (defined on `module.exports.config`) which allows developers to pass settings to the specific docs generator for that adapter.
+Adapters can have an optional configuration object (defined on `module.exports.config`), which can be used to allow developers to pass settings to the specific docs generator for that adapter.
 
 An adapter function accepts three parameters:
 
 - **value** (Mixed): page-specific configuration values. This could be any YAML-compatible value, but it's often a string.
-- **config** (Object): global configuration values. This is an object that is extended by the developer's config settings.
+- **config** (Object): global configuration values. This is the adapter's defaults, extended by the developer's own settings.
 - **cb** (Function): a callback to run when parsing is finished. The function takes two parameters: an error (or `null` if there's no error), and the parsed data.
 
-Supercollider has two built-in adapters: `sass`, which uses SassDoc, and `js`, which uses JSDoc. You can create your own by calling the `adapter()` method on an instance of Supercollider. An adapter is an asynchronous function that passes parsed data through a callback.
+Supercollider has two built-in adapters: `sass`, which uses SassDoc, and `js`, which uses JSDoc. You can create your own by calling the `adapter()` method on Supercollider. An adapter is an asynchronous function that passes parsed data through a callback.
 
 Here's what the built-in SassDoc adapter looks like.
 
