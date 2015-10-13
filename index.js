@@ -1,26 +1,20 @@
-var path    = require('path');
+var path = require('path');
 
-function Super(options) {
-  this.options = options;
+function Supercollider() {
+  this.options = {};
   this.adapters = {};
   this.tree = [];
+  this.template = null;
 }
 
-Super.prototype = {
-  parse: require('./lib/parse'),
-  build: require('./lib/build'),
-  adapter: require('./lib/adapter')
-}
+Supercollider.prototype.init = require('./lib/init');
+Supercollider.prototype.parse = require('./lib/parse');
+Supercollider.prototype.build = require('./lib/build');
+Supercollider.prototype.adapter = require('./lib/adapter');
+Supercollider.prototype.config = require('./lib/config');
 
-var s = new Super();
+var s = new Supercollider();
 s.adapter('sass', require(path.join(__dirname, 'adapters', 'sass')));
 s.adapter('js', require(path.join(__dirname, 'adapters', 'js')));
 
-module.exports = {
-  init: require('./lib/init')(s),
-  adapter: function() {
-    s.adapter.apply(s, arguments);
-  },
-  tree: s.tree,
-  Super: Super
-}
+module.exports = s;

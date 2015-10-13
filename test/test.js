@@ -2,7 +2,6 @@ var exec   = require('child_process').execFile;
 var extend = require('util')._extend;
 var mocha  = require('mocha');
 var rimraf = require('rimraf');
-var Super  = require('../index');
 var vfs    = require('vinyl-fs');
 
 var SOURCES = './test/fixtures/*.md';
@@ -24,17 +23,21 @@ describe('Supercollider', function() {
   });
 
   it('works as a standalone plugin', function(done) {
+    var Super  = require('../index');
     var opts = extend({}, CONFIG);
     opts.src = SOURCES;
     opts.dest = OUTPUT;
 
-    var s = Super.init(opts);
+    var s = Super.config(opts).init();
 
     s.on('finish', done);
   });
 
   it('works inside a stream of Vinyl files', function(done) {
+    var Super = require('../index');
     var opts = extend({}, CONFIG);
+
+    Super.config(opts);
 
     var s = vfs.src(SOURCES)
       .pipe(Super.init(opts))
