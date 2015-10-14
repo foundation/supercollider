@@ -15,16 +15,19 @@ program
   .option('-h, --handlebars <file>', 'Path to a Handlebars instance', lib)
   .parse(process.argv);
 
-var s = Super.config({
+Super.config({
   src: program.source || false,
   template: program.template || false,
-  adapters: program.adapters || false,
   dest: program.dest || false,
   marked: program.marked || false,
   handlebars: program.handlebars || false
-}).init();
+});
 
-s.on('finish', process.exit);
+for (var i in program.adapters) {
+  Super.adapter(program.adapters[i]);
+}
+
+Super.init().on('finish', process.exit);
 
 // Creates an array from a comma-separated list
 function list(val) {

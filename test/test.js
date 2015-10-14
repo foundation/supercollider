@@ -52,11 +52,11 @@ describe('Supercollider', function() {
     s.on('finish', done);
   });
 
-  xit('works from the command line', function(done) {
+  it('works from the command line', function(done) {
     var args = [
       '--source', SOURCES,
       '--template', CONFIG.template,
-      '--adapters', CONFIG.adapters.join(','),
+      '--adapters', 'sass,js',
       '--dest', OUTPUT,
       '--marked', './test/fixtures/marked.js',
       '--handlebars', './test/fixtures/handlebars.js'
