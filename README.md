@@ -159,6 +159,25 @@ function processTree(tree) {
 }
 ```
 
+## Command Line Use
+
+Supercollider can be installed globally and used from the command line. For now, only the `sass` and `js` adapters can be used.
+
+```
+  Usage: supercollider [options]
+
+  Options:
+
+    -h, --help               output usage information
+    -V, --version            output the version number
+    -s, --source <glob>      Glob of files to process
+    -t, --template <file>    Handlebars template to use
+    -a, --adapters <items>   Adapters to use
+    -d, --dest <folder>      Folder to output HTML to
+    -m, --marked <file>      Path to a Marked renderer instance
+    -h, --handlebars <file>  Path to a Handlebars instance
+```
+
 ## Building Locally
 
 ```
