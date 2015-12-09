@@ -13,7 +13,10 @@ var CONFIG = {
     'sass': { verbose: false }
   },
   marked: require('./fixtures/marked'),
-  handlebars: require('./fixtures/handlebars')
+  handlebars: require('./fixtures/handlebars'),
+  data: {
+    'project': 'Large Hadron'
+  }
 }
 
 describe('Supercollider', function() {
