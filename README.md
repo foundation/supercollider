@@ -99,6 +99,7 @@ Sets configuration settings.
     - This value can also be `false`, which disables Markdown parsing on the page body altogether.
   - **handlebars** (Object): a custom instance of Handlebars to use when rendering the final HTML. This allows you to pass in custom helpers for use in your template.
   - **extension** (String): extension to change files to after processing. The default is `html`.
+  - **silent** (Boolean): disable console logging as pages are processed.
 
 ### init()
 

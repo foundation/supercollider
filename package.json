@@ -29,9 +29,11 @@
   },
   "dependencies": {
     "async": "^0.9.0",
+    "chalk": "^1.1.1",
     "commander": "^2.8.1",
     "front-matter": "^1.0.0",
     "glob": "^4.3.5",
+    "gulp-util": "^3.0.7",
     "handlebars": "^2.0.0",
     "js-yaml": "^3.4.3",
     "jsdoc3-parser": "^1.0.4",
