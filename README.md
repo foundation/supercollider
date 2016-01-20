@@ -185,5 +185,5 @@ Supercollider can be installed globally and used from the command line. For now,
 git clone https://github.com/gakimball/supercollider
 cd supercollider
 npm install
-npm start
+npm test
 ```
