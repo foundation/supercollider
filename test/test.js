@@ -89,7 +89,7 @@ describe('Search Builder', function() {
     });
   });
 
-  it.only('generates search results for processed pages', function() {
+  it('generates search results for processed pages', function() {
     expect(data).to.be.an('array');
     expect(data[0]).to.have.all.keys(['type', 'name', 'description', 'link', 'tags']);
   });
