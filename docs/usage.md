@@ -8,7 +8,7 @@ npm install supercollider --save-dev
 
 ## Setup
 
-Before running the parser, call `Supercollider.config()` with an object of configuration settings. Refer to the [configuration](#configoptions) section below to see every option.
+Before running the parser, call `Supercollider.config()` with an object of configuration settings. Refer to the [full API](api.md) to see every option.
 
 ```js
 var Super = require('supercollider');
@@ -28,7 +28,7 @@ Super
   .adapter('js');
 ```
 
-You can also create custom adapters by passing in a function as a second parameter. Refer to [adapter()](#adaptername-func) below.
+You can also create custom adapters by passing in a function as a second parameter. Refer to the [adapters](adapters.md) section of the docs to learn more.
 
 ## Initializing
 
