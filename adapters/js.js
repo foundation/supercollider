@@ -19,7 +19,7 @@ module.exports.search = function(items, link) {
     var hash = '#js-' + type.replace('plugin ', '') + 's';
 
     if (type === 'class') {
-      name = 'Foundation.' + name;
+      name = name + '()';
       hash = hash.slice(0, -1)
     }
 
