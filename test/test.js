@@ -77,7 +77,14 @@ describe('Search Builder', function() {
     opts.src = SOURCES;
     opts.dest = OUTPUT;
 
-    s = Super.config(opts).adapter('sass').adapter('js');
+    s = Super
+      .config(opts)
+      .adapter('sass')
+      .adapter('js')
+      .searchConfig({
+        extra: 'test/fixtures/search.yml'
+      });
+
     s.init().on('finish', function() {
       s.buildSearch('test/_build/search.json', function() {
         fs.readFile('test/_build/search.json', function(err, contents) {
@@ -92,5 +99,8 @@ describe('Search Builder', function() {
   it('generates search results for processed pages', function() {
     expect(data).to.be.an('array');
     expect(data[0]).to.have.all.keys(['type', 'name', 'description', 'link', 'tags']);
+  });
+
+  it('allows external data to be added as extra results', function() {
   });
 })
