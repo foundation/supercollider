@@ -10,5 +10,6 @@ Supercollider.prototype.parse = require('./lib/parse');
 Supercollider.prototype.build = require('./lib/build');
 Supercollider.prototype.adapter = require('./lib/adapter');
 Supercollider.prototype.config = require('./lib/config');
+Supercollider.prototype.buildSearch = require('./lib/buildSearch');
 
 module.exports = new Supercollider();

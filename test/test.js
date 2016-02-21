@@ -1,5 +1,7 @@
 var exec   = require('child_process').execFile;
+var expect = require('chai').expect;
 var extend = require('util')._extend;
+var fs     = require('fs');
 var mocha  = require('mocha');
 var rimraf = require('rimraf');
 var vfs    = require('vinyl-fs');
@@ -65,3 +67,30 @@ describe('Supercollider', function() {
     exec('./bin/supercollider.js', args, done);
   });
 });
+
+describe('Search Builder', function() {
+  var s, data;
+
+  before(function(done) {
+    var Super  = require('../index');
+    var opts = extend({}, CONFIG);
+    opts.src = SOURCES;
+    opts.dest = OUTPUT;
+
+    s = Super.config(opts).adapter('sass').adapter('js');
+    s.init().on('finish', function() {
+      s.buildSearch('test/_build/search.json', function() {
+        fs.readFile('test/_build/search.json', function(err, contents) {
+          if (err) throw err;
+          data = JSON.parse(contents);
+          done();
+        });
+      });
+    });
+  });
+
+  it.only('generates search results for processed pages', function() {
+    expect(data).to.be.an('array');
+    expect(data[0]).to.have.all.keys(['type', 'name', 'description', 'link', 'tags']);
+  });
+})

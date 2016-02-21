@@ -1,9 +1,47 @@
+var escapeHTML = require('escape-html');
 var jsdoc = require('jsdoc3-parser');
 
 module.exports = function(value, config, cb) {
   jsdoc(value, function(error, data) {
     cb(null, processTree(data));
   });
+}
+
+module.exports.search = function(items, link) {
+  var results = [];
+  var tree = [].concat(items.class || [], items.function || [], items.event || [], items.member || []);
+
+  for (var i in tree) {
+    var item = tree[i];
+    var name = item.name;
+    var type = item.kind;
+    var description = escapeHTML(item.description.replace('\n', ''));
+    var hash = '#js-' + type.replace('plugin ', '') + 's';
+
+    if (type === 'class') {
+      name = 'Foundation.' + name;
+      hash = hash.slice(0, -1)
+    }
+
+    if (type === 'member') {
+      type = 'plugin option'
+    }
+
+    if (type === 'function') {
+      name = item.meta.code.name.replace('prototype.', '');
+      hash = '#' + name.split('.')[1];
+      name += '()';
+    }
+
+    results.push({
+      type: 'js ' + type,
+      name: name,
+      description: description,
+      link: link + hash
+    });
+  }
+
+  return results;
 }
 
 function processTree(tree) {
