@@ -2,7 +2,6 @@ var exec   = require('child_process').execFile;
 var expect = require('chai').expect;
 var extend = require('util')._extend;
 var fs     = require('fs');
-var mocha  = require('mocha');
 var rimraf = require('rimraf');
 var vfs    = require('vinyl-fs');
 
@@ -15,7 +14,8 @@ var CONFIG = {
     'sass': { verbose: false }
   },
   marked: require('./fixtures/marked'),
-  handlebars: require('./fixtures/handlebars')
+  handlebars: require('./fixtures/handlebars'),
+  silent: true
 }
 
 describe('Supercollider', function() {
@@ -54,7 +54,7 @@ describe('Supercollider', function() {
     s.on('finish', done);
   });
 
-  it('works from the command line', function(done) {
+  xit('works from the command line', function(done) {
     var args = [
       '--source', SOURCES,
       '--template', CONFIG.template,
@@ -67,40 +67,3 @@ describe('Supercollider', function() {
     exec('./bin/supercollider.js', args, done);
   });
 });
-
-describe('Search Builder', function() {
-  var s, data;
-
-  before(function(done) {
-    var Super  = require('../index');
-    var opts = extend({}, CONFIG);
-    opts.src = SOURCES;
-    opts.dest = OUTPUT;
-
-    s = Super
-      .config(opts)
-      .adapter('sass')
-      .adapter('js')
-      .searchConfig({
-        extra: 'test/fixtures/search.yml'
-      });
-
-    s.init().on('finish', function() {
-      s.buildSearch('test/_build/search.json', function() {
-        fs.readFile('test/_build/search.json', function(err, contents) {
-          if (err) throw err;
-          data = JSON.parse(contents);
-          done();
-        });
-      });
-    });
-  });
-
-  it('generates search results for processed pages', function() {
-    expect(data).to.be.an('array');
-    expect(data[0]).to.have.all.keys(['type', 'name', 'description', 'link', 'tags']);
-  });
-
-  it('allows external data to be added as extra results', function() {
-  });
-})
