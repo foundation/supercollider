@@ -1,0 +1,16 @@
+-
+  type: old version
+  name: Foundation 2
+  description: Documentation for Foundation 2.2.1
+  link: 'http://foundation.zurb.com/sites/docs/v/2.2.1/'
+  tags:
+    - old
+    - previous
+-
+  type: old version
+  name: Foundation 2
+  description: Documentation for Foundation 3.2.5
+  link: 'http://foundation.zurb.com/sites/docs/v/3.2.5/'
+  tags:
+    - old
+    - previous

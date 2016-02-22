@@ -1,6 +1,6 @@
 {
   "name": "supercollider",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Documentation generator that can combine data from multiple parsers, such as SassDoc and JSDoc.",
   "keywords": [
     "documentation",
@@ -31,6 +31,7 @@
     "async": "^0.9.0",
     "chalk": "^1.1.1",
     "commander": "^2.8.1",
+    "escape-html": "^1.0.3",
     "front-matter": "^1.0.0",
     "glob": "^4.3.5",
     "gulp-util": "^3.0.7",
@@ -38,6 +39,7 @@
     "js-yaml": "^3.4.3",
     "jsdoc3-parser": "^1.0.4",
     "marked": "^0.3.2",
+    "mkdirp": "^0.5.1",
     "rimraf": "^2.2.8",
     "sassdoc": "^2.0.0-rc.17",
     "string-template": "^0.2.0",
@@ -45,6 +47,7 @@
     "vinyl-fs": "^1.0.0"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "highlight.js": "^8.4.0",
     "mocha": "^2.2.4"
   }

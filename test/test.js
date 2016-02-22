@@ -1,6 +1,7 @@
 var exec   = require('child_process').execFile;
+var expect = require('chai').expect;
 var extend = require('util')._extend;
-var mocha  = require('mocha');
+var fs     = require('fs');
 var rimraf = require('rimraf');
 var vfs    = require('vinyl-fs');
 
@@ -13,7 +14,8 @@ var CONFIG = {
     'sass': { verbose: false }
   },
   marked: require('./fixtures/marked'),
-  handlebars: require('./fixtures/handlebars')
+  handlebars: require('./fixtures/handlebars'),
+  silent: true
 }
 
 describe('Supercollider', function() {
@@ -52,7 +54,7 @@ describe('Supercollider', function() {
     s.on('finish', done);
   });
 
-  it('works from the command line', function(done) {
+  xit('works from the command line', function(done) {
     var args = [
       '--source', SOURCES,
       '--template', CONFIG.template,
