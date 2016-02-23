@@ -15,3 +15,4 @@ Supercollider.prototype.buildSearch = require('./lib/buildSearch');
 Supercollider.prototype.searchConfig = require('./lib/searchConfig');
 
 module.exports = new Supercollider();
+module.exports.Supercollider = Supercollider;
