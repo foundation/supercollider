@@ -14,6 +14,7 @@ Sets configuration settings.
   - **extension** (String): extension to change files to after processing. The default is `html`.
   - **silent** (Boolean): enable/disable console logging as pages are processed. The default is `true`.
   - **pageRoot** (String): path to the common folder that every source page sits in. This is only necessary if you're generating [search results](search.md).
+  - **data** (Object): extra data to add to the Handlebars instance.
 
 ### init()
 
