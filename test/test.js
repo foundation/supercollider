@@ -16,6 +16,9 @@ var CONFIG = {
   marked: require('./fixtures/marked'),
   handlebars: require('./fixtures/handlebars'),
   silent: true
+  data: {
+    'project': 'Large Hadron'
+  }
 }
 
 describe('Supercollider', function() {
