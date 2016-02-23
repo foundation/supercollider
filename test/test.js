@@ -15,7 +15,7 @@ var CONFIG = {
   },
   marked: require('./fixtures/marked'),
   handlebars: require('./fixtures/handlebars'),
-  silent: true
+  silent: true,
   data: {
     'project': 'Large Hadron'
   }
