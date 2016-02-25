@@ -1,8 +1,8 @@
 var escapeHTML = require('escape-html');
-var jsdoc = require('jsdoc3-parser');
+var jsdoc = require('jsdoc-api');
 
 module.exports = function(value, config, cb) {
-  jsdoc(value, function(error, data) {
+  jsdoc.explain({ files: value }).then(function(data) {
     cb(null, processTree(data));
   });
 }
