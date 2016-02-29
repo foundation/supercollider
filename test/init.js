@@ -38,4 +38,22 @@ describe('Supercollider.init()', function() {
         done();
       });
   });
+
+  it.only('resets the internal data tree on each build', function(done) {
+    var s = new Supercollider();
+    s.config({
+      src: 'test/fixtures/*.md',
+      template: 'test/fixtures/template.html',
+      silent: true
+    });
+
+    s.init().on('finish', function() {
+      expect(s.tree).to.have.length(1);
+
+      s.init().on('finish', function() {
+        expect(s.tree).to.have.length(1);
+        done();
+      })
+    });
+  });
 });
