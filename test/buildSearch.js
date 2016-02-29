@@ -8,6 +8,19 @@ describe('Supercollider.buildSearch()', function() {
     rimraf('test/fixtures/_build', done);
   });
 
+  it('works even if searchConfig() was not called', function(done) {
+    var s = new Supercollider().config({
+      src: 'test/fixtures/*.md',
+      template: 'test/fixtures/template.html',
+      handlebars: require('./fixtures/handlebars'),
+      silent: true
+    });
+
+    s.init().on('finish', function() {
+      s.buildSearch('test/fixtures/_build/search.json', done);
+    });
+  });
+
   it('flags generic pages as "page"', function(done) {
     var s = new Supercollider().config({
       src: 'test/fixtures/*.md',

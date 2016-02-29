@@ -1,6 +1,10 @@
 function Supercollider() {
   this.options = {};
-  this.searchOptions = {};
+  this.searchOptions = {
+    extra: [],
+    sort: [],
+    pageTypes: {}
+  };
   this.adapters = {};
   this.tree = [];
   this.template = null;
