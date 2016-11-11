@@ -4,10 +4,10 @@ A fancy documentation generator that can mash up documentation from multiple sou
 
 ## Features
 
-- Combines [Markdown, SassDoc data, and JSDoc data](overview.md) into compiled HTML pages.
-- Supports [custom Markdown and Handlebars](api.md) instances.
-- Can generate a [search result list](search.md) out of documentation items.
-- Can be [extended](adapters.md) to support other documentation generators.
+- Combines [Markdown, SassDoc data, and JSDoc data](docs/overview.md) into compiled HTML pages.
+- Supports [custom Markdown and Handlebars](docs/api.md) instances.
+- Can generate a [search result list](docs/search.md) out of documentation items.
+- Can be [extended](docs/adapters.md) to support other documentation generators.
 
 ## Documentation
 
