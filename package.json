@@ -1,6 +1,6 @@
 {
   "name": "supercollider",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Documentation generator that can combine data from multiple parsers, such as SassDoc and JSDoc.",
   "keywords": [
     "documentation",
