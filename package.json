@@ -41,7 +41,7 @@
     "js-yaml": "^3.13.1",
     "jsdoc-api": "^5.0.2",
     "jsdoc3-parser": "^1.0.4",
-    "marked": "^0.7.0",
+    "marked": "^0.3.14",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.2.8",
     "sassdoc": "^2.0.0-rc.17",
