@@ -47,7 +47,8 @@
     "sassdoc": "^2.7.1",
     "string-template": "^0.2.0",
     "through2": "^0.6.3",
-    "vinyl-fs": "^3.0.3"
+    "vinyl-fs": "^3.0.3",
+    "lodash.template": ">=4.5.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
