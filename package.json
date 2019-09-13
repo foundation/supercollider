@@ -39,7 +39,7 @@
     "gulp-util": "^3.0.7",
     "handlebars": "^4.1.2",
     "js-yaml": "^3.13.1",
-    "jsdoc-api": "^5.0.2",
+    "jsdoc-api": "^5.0.3",
     "jsdoc3-parser": "^1.0.4",
     "marked": "^0.7.0",
     "mkdirp": "^0.5.1",
