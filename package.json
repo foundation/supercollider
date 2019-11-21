@@ -37,7 +37,7 @@
     "glob": "^7.1.4",
     "glob-all": "^3.1.0",
     "gulp-util": "^3.0.7",
-    "handlebars": "^4.1.2",
+    "handlebars": "^4.5.3",
     "js-yaml": "^3.13.1",
     "jsdoc-api": "^5.0.2",
     "jsdoc3-parser": "^1.0.4",
