@@ -43,7 +43,7 @@
     "jsdoc3-parser": "^1.0.4",
     "marked": "^0.7.0",
     "mkdirp": "^0.5.1",
-    "rimraf": "^2.2.8",
+    "rimraf": "^2.7.1",
     "sassdoc": "^2.7.1",
     "string-template": "^0.2.0",
     "through2": "^0.6.3",
