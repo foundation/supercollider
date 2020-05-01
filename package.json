@@ -16,7 +16,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "author": "ZURB <foundation@zurb.com>",
   "license": "MIT",
@@ -48,7 +50,8 @@
     "string-template": "^0.2.0",
     "through2": "^0.6.3",
     "vinyl-fs": "^3.0.3",
-    "lodash.template": ">=4.5.0"
+    "lodash.template": ">=4.5.0",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -56,5 +59,6 @@
     "mocha": "^6.2.0",
     "vinyl": "^1.1.1",
     "watchjs": "0.0.0"
-  }
+  },
+  "snyk": true
 }
