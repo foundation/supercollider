@@ -18,7 +18,7 @@
   "scripts": {
     "test": "mocha"
   },
-  "author": "ZURB <foundation@zurb.com>",
+  "author": "Foundation <contact@get.foundation>",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -41,20 +41,23 @@
     "js-yaml": "^3.13.1",
     "jsdoc-api": "^5.0.2",
     "jsdoc3-parser": "^1.0.4",
-    "marked": "^0.7.0",
+    "lodash.template": ">=4.5.0",
+    "marked": "^1.1.1",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.2.8",
-    "sassdoc": "^2.7.1",
+    "sassdoc": "^2.7.2",
     "string-template": "^0.2.0",
     "through2": "^0.6.3",
-    "vinyl-fs": "^3.0.3",
-    "lodash.template": ">=4.5.0"
+    "vinyl-fs": "^3.0.3"
+  },
+  "resolutions": {
+    "marked": "^1.1.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "highlight.js": "^8.4.0",
-    "mocha": "^6.2.0",
-    "vinyl": "^1.1.1",
+    "mocha": "^8.0.1",
+    "vinyl": "^2.2.0",
     "watchjs": "0.0.0"
   }
 }
