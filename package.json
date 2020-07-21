@@ -1,6 +1,6 @@
 {
   "name": "supercollider",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Documentation generator that can combine data from multiple parsers, such as SassDoc and JSDoc.",
   "keywords": [
     "documentation",
@@ -51,7 +51,8 @@
     "vinyl-fs": "^3.0.3"
   },
   "resolutions": {
-    "marked": "^1.1.1"
+    "marked": "^1.1.1",
+    "lodash.template": ">=4.5.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
