@@ -5,7 +5,7 @@ var path = require('path');
 var Super = require('../index');
 
 program
-  .version('0.2.0')
+  .version('1.5.1')
   .usage('[options]')
   .option('-s, --source <glob>', 'Glob of files to process')
   .option('-t, --template <file>', 'Handlebars template to use')
