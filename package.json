@@ -56,7 +56,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "highlight.js": "^8.4.0",
+    "highlight.js": "^10.1.2",
     "mocha": "^8.0.1",
     "vinyl": "^2.2.0",
     "watchjs": "0.0.0"
