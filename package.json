@@ -42,7 +42,7 @@
     "jsdoc-api": "^5.0.2",
     "jsdoc3-parser": "^1.0.4",
     "lodash.template": ">=4.5.0",
-    "marked": "^2.0.0",
+    "marked": "^4.0.10",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.2.8",
     "sassdoc": "^2.7.3",
