@@ -28,7 +28,7 @@
     "url": "https://github.com/foundation/supercollider/issues"
   },
   "dependencies": {
-    "async": "^0.9.0",
+    "async": "^2.6.4",
     "chalk": "^1.1.1",
     "commander": "^2.8.1",
     "escape-html": "^1.0.3",
