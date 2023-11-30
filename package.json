@@ -34,7 +34,7 @@
     "escape-html": "^1.0.3",
     "extend": "^3.0.2",
     "front-matter": "^1.0.0",
-    "glob": "^7.1.4",
+    "glob": "^9.0.0",
     "glob-all": "^3.1.0",
     "gulp-util": "^3.0.7",
     "handlebars": "^4.1.2",
@@ -48,7 +48,7 @@
     "sassdoc": "^2.7.3",
     "string-template": "^0.2.0",
     "through2": "^0.6.3",
-    "vinyl-fs": "^3.0.3"
+    "vinyl-fs": "^4.0.0"
   },
   "resolutions": {
     "marked": "^2.0.0",
