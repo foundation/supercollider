@@ -39,7 +39,7 @@
     "gulp-util": "^3.0.7",
     "handlebars": "^4.1.2",
     "js-yaml": "^3.13.1",
-    "jsdoc-api": "^5.0.2",
+    "jsdoc-api": "^8.1.0",
     "jsdoc3-parser": "^1.0.4",
     "lodash.template": ">=4.5.0",
     "marked": "^2.0.0",
