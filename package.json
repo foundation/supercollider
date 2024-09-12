@@ -44,11 +44,11 @@
     "lodash.template": ">=4.5.0",
     "marked": "^2.0.0",
     "mkdirp": "^0.5.1",
-    "rimraf": "^2.2.8",
+    "rimraf": "^4.3.1",
     "sassdoc": "^2.7.3",
     "string-template": "^0.2.0",
     "through2": "^0.6.3",
-    "vinyl-fs": "^3.0.3"
+    "vinyl-fs": "^4.0.0"
   },
   "resolutions": {
     "marked": "^2.0.0",
